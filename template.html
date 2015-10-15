@@ -3,66 +3,464 @@
 <meta charset="utf-8">
 <title>The Title Of Your Presentation</title>
 
+<script type="text/javascript" src="./Bacon.js"></script>
+
 <!-- Your Slides -->
 <!-- One section is one slide -->
 
 <section>
-    <!-- This is the first slide -->
-    <h1>My Presentation</h1>
-    <footer>by John Doe</footer>
+  <h1>Bacon.js</h1>
+  <footer>@NantesJS, October 2015</footer>
 </section>
 
 <section>
-    <p>Some random text: But I've never been to the moon! You can see how I lived before I met you. Also Zoidberg.
-    I could if you hadn't turned on the light and shut off my stereo.</p>
+  <div class="avatar"></div>
+  <h2 class="author">Rodolphe Belouin</h2>
+  <p class="pseudo">@rbelouin</p>
+  <p class="tags">#JS, #React, #Bacon, #Scala, #Play, #FP, #Gospel, #Jazz</p>
 </section>
 
 <section>
-    <h3>An incremental list</h3>
-    <ul class="incremental">
-      <li>Item 1
-      <li>Item 2
-      <li>Item 3
-        <ul class="incremental">
-          <li> Item 3.1
-          <li> Item 3.2
-        </ul>
-    </ul>
-    <div role="note">Some notes. They are only visible using onstage shell.</div>
+  <h3>A bit of JS history</h3>
 </section>
 
 <section>
-  <blockquote>
-    Who's brave enough to fly into something we all keep calling a death sphere?
-  </blockquote>
-  <details>
-    <p>In the onstage shell, notes scroll rather than overflow:</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla ac dui eu est feugiat lacinia sit amet nec leo. Mauris eu ipsum leo. Nulla mi odio, cursus sed sollicitudin non, fringilla id magna. Suspendisse sit amet posuere elit. Maecenas iaculis, turpis a placerat imperdiet, libero lorem feugiat nisi, nec tincidunt diam nibh sit amet massa. Vestibulum quis adipiscing tellus. Maecenas sollicitudin sodales pulvinar. Donec dui ipsum, bibendum facilisis consequat interdum, tempus ut mauris. Aliquam ut dolor nec odio scelerisque bibendum quis in neque. Aliquam dui dui, pulvinar quis fermentum quis, gravida eu augue. Nunc tristique dolor a urna pulvinar bibendum. Curabitur mollis cursus neque, in scelerisque metus porta non. Donec tempor enim in nibh vestibulum et convallis nisi malesuada. Duis ut lectus sed metus venenatis porttitor id pharetra quam. Suspendisse sapien turpis, ornare in molestie et, gravida eget turpis.
-    </p>
-  </details>
+  <h3>Array Manipulation</h3>
 </section>
 
 <section>
-    <h2>Part two</h2>
+  <h4>Array Manipulation</h4>
+
+  <code><pre>
+var pianists = [];
+
+for(var i = 0; i &lt; musicians.length; i++) {
+  if(musicians[i].instrument === "piano") {
+    pianists.push(musicians[i]);
+  }
+}
+  </pre></code>
 </section>
 
 <section>
-    <figure> <!-- Figures are used to display images and videos fullpage -->
-      <img src="http://placekitten.com/g/800/600">
-      <figcaption>An image</figcaption>
-    </figure>
-    <div role="note">Kittens are so cute!</div>
+  <h4>Array Manipulation</h4>
+
+  <code><pre>
+var pianists = [];
+
+for(var i = 0; i &lt; <strong class="red">musicians</strong>.length; i++) {
+  if(<strong class="red">musicians[i].instrument === "piano"</strong>) {
+    pianists.push(musicians[i]);
+  }
+}
+  </pre></code>
 </section>
 
 <section>
-    <figure> <!-- Videos are automatically played -->
-      <video src="http://videos-cdn.mozilla.net/brand/Mozilla_Firefox_Manifesto_v0.2_640.webm" poster="http://www.mozilla.org/images/about/poster.jpg"></video>
-      <figcaption>A video</figcaption>
-    </figure>
+  <h4>Array Manipulation</h4>
+
+  <code><pre>
+var pianists = _.filter(musicians, 
+  m =&gt; m.instrument === "piano"
+);
+
+var pianists = musicians
+  .filter(instrumentIsPiano)
+  .map(getName);
+  </pre></code>
 </section>
 
 <section>
-    <h2>End!</h2>
+  <h3>Asynchronous Process Management</h3>
+</section>
+
+<section>
+  <h4>Asynchronous Process Management</h4>
+
+  <code><pre>
+readFile(filename, function(err, data) {
+  if(err) {
+    console.error(err); return;
+  }
+
+  sendRequest(data, function(err, res) {
+    if(err) {
+      console.error(err); return;
+    }
+
+    /* ... */
+  });
+});
+  </pre></code>
+</section>
+
+<section>
+  <h4>Asynchronous Process Management</h4>
+
+  <code><pre>
+<strong class="red">readFile(filename,</strong> function(err, data) {
+  if(err) {
+    console.error(err); return;
+  }
+
+  <strong class="red">sendRequest(data,</strong> function(err, res) {
+    if(err) {
+      console.error(err); return;
+    }
+
+    /* ... */
+  });
+});
+  </pre></code>
+</section>
+
+<section>
+  <h4>Asynchronous Process Management</h4>
+
+  <code><pre>
+
+
+readFile(filename)
+  .then(sendRequest)
+  .catch(console.error.bind(console));
+  </pre></code>
+</section>
+
+<section>
+  <h3>
+    Event Management
+  </h3>
+</section>
+
+<section>
+  <h4>Event Management</h4>
+
+  <code><pre>
+input.on("input", function() {
+  var title = input.value;
+
+  if(title.length &gt; 3) {
+    send(title)
+      .then(function(songs) {
+        render(songs);
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+  }
+});
+  </pre></code>
+</section>
+
+<section>
+  <h4>Event Management</h4>
+
+  <code><pre>
+input.on("input", function() {
+  <strong class="red">var title = input.value;</strong>
+
+  if(<strong class="red">title.length &gt; 3</strong>) {
+    <strong class="red">send(title)</strong>
+      .then(function(songs) {
+        <strong class="red">render(songs);</strong>
+      })
+      .catch(function(err) {
+        console.error(err);
+      });
+  }
+});
+  </pre></code>
+</section>
+
+<section>
+  <h1>Bacon.js</h1>
+  <footer>@NantesJS, October 2015</footer>
+</section>
+
+<section>
+  <h4>Stream steps</h4>
+
+  <ul>
+    <li>Source</li>
+    <li>Transformations</li>
+    <li>Subscriptions</li>
+  </ul>
+</section>
+
+<section>
+  <h3>Creation methods</h3>
+</section>
+
+<section>
+  <h4>Creation methods</h4>
+
+  <code><pre>
+Bacon.fromEvent(button, "click");
+
+Bacon.fromPoll(1000, function() {
+  return stuff;
+});
+
+Bacon.fromPromise(p);
+
+/* many other methods */
+
+Bacon.fromBinder(function(sink) {
+  /* low-level stuff */
+});
+  </pre></code>
+</section>
+
+<section>
+  <h3>
+    Transformation methods
+  </h3>
+</section>
+
+<section>
+  <h4>
+    Transformation methods
+  </h4>
+  <code><pre>
+var s_input = Bacon.fromEvent(
+  input,
+  "input"
+);
+
+var s_search = s_input
+  .map(e =&gt; e.target.value.trim())
+  .filter(search =&gt; search.length &gt; 3);
+  </pre></code>
+</section>
+
+<section>
+  <h3>
+    Stream association
+  </h3>
+</section>
+
+<section>
+  <h4>
+    Stream association
+  </h4>
+  <code><pre>
+
+Bacon.merge(s_children, s_adults);
+
+Bacon.concat(stream1, stream2);
+
+Bacon.zipWith(s_picon, s_beer, blend);
+  </pre></code>
+</section>
+
+<section>
+  <h3>
+    Subscription methods
+  </h3>
+</section>
+
+<section>
+  <h4>
+    Subscription methods
+  </h4>
+
+  <code><pre>
+stream.onValue(function(value) {
+  /* do stuff */
+});
+
+stream.onError(function(error) {
+  /* do stuff */
+});
+
+stream.onEnd(function() {
+  /* do stuff */
+});
+
+stream.subscribe(/*...*/);
+  </pre></code>
+</section>
+
+<section>
+  <h3>
+    Example
+  </h3>
+</section>
+
+<script type="text/javascript">
+  var songs = [
+    {title: "Autumn Leaves", category: "jazz"},
+    {title: "This Little Light Of Mine", category: "gospel"},
+    {title: "Blue Monk", category: "jazz"},
+    {title: "Blue Rondo A La Turk", category: "jazz"},
+    {title: "Blue Suede Shoes", category: "rock"},
+    {title: "All Blues", category: "jazz"},
+    {title: "Blue In Green", category: "jazz"},
+    {title: "Good Morning Headache", category: "jazz"},
+    {title: "Johnny B. Goode", category: "rock"},
+    {title: "Feeling Good", category: "jazz"},
+    {title: "Love Ain't Gonna Let You Down", category: "jazz"},
+    {title: "Love For Sale", category: "jazz"},
+    {title: "Wings Of Love", category: "gospel"}
+  ];
+
+  function search(title, category) {
+    return new Promise(function(resolve, reject) {
+      setTimeout(function() {
+        resolve(songs.filter(song => {
+          return song.title.toLowerCase().indexOf(title.toLowerCase()) >= 0 && (category === "" || song.category === category);
+        }));
+      }, 200);
+    });
+  }
+</script>
+
+<section>
+  <h4>
+    Example
+  </h4>
+
+  <div id="example1">
+    <input id="example1-input" type="text" placeholder="Type a song title" />
+    
+    <select id="example1-select">
+      <option value="">Select a category</option>
+      <option value="jazz">Jazz</option>
+      <option value="gospel">Gospel</option>
+      <option value="rock">Rock</option>
+    </select>
+    
+    <ul id="example1-list"></ul>
+  </div>
+
+  <script type="text/javascript">
+    var input = document.querySelector("#example1-input");
+    var select = document.querySelector("#example1-select");
+    var list = document.querySelector("#example1-list");
+
+    var p_input = Bacon.fromEvent(input, "input")
+      .debounce(300);
+
+    var p_title = p_input.map(e => e.target.value.trim())
+                          .skipDuplicates()
+                          .toProperty(input.value.trim());
+
+    var p_category = Bacon.fromEvent(select, "change")
+                      .map(e => e.target.value)
+                      .toProperty(select.value);
+
+    var p_search = Bacon.combineWith(p_title, p_category,
+      (title, category) => ({title: title, category: category})
+    );
+
+    var p_songs = p_search.flatMapLatest(
+      s => s.title.length < 4 ? Bacon.once([]) : Bacon.fromPromise(search(s.title, s.category))
+    );
+
+    p_songs.onValue(songs => {
+      list.innerHTML = songs.map(s => "<li>" + s.title + "</li>").join("");
+    });
+  </script>
+</section>
+
+<section>
+  <h4>
+    Example
+  </h4>
+  <ul>
+    <li><strong>Sources:</strong> input &amp; select</li>
+    <li><strong>Transformations:</strong> extracting the title and the category</li>
+    <li><strong>Association:</strong> title &amp; category</li>
+    <li><strong>Transformation:</strong> a HTTP request</li>
+    <li><strong>Subscription:</strong> HTML rendering</li>
+  </ul>
+</section>
+
+<section>
+  <h4>Example - Sources</h4>
+
+  <code><pre>
+var s_input = Bacon.fromEvent(
+                input,
+                "input"
+              ).debounce(200);
+
+var s_select = Bacon.fromEvent(
+                select,
+                "change"
+              );
+  </pre></code>
+</section>
+
+<section>
+  <h4>Example - Initial transformations</h4>
+
+  <code><pre>
+var p_title = s_input.map(
+                e =&gt; e.target.value.trim()
+              )
+              .skipDuplicates()
+              .toProperty(input.value.trim());
+
+var p_category = s_select.map(
+                  e =&gt; e.target.value
+                )
+                .toProperty(select.value);
+  </pre></code>
+</section>
+
+<section>
+  <h4>Example - Association</h4>
+
+  <code><pre>
+var combine = (title, category) =&gt;
+  {title: title, category: category};
+
+var p_query = Bacon.combineWith(
+                p_title,
+                p_category,
+                combine
+              );
+  </pre></code>
+</section>
+
+<section>
+  <h4>Example - Transformation</h4>
+
+  <code><pre>
+
+
+var p_songs = p_query.flatMapLatest(
+  query =&gt; Bacon.fromPromise(search(query))
+).toProperty();
+  </pre></code>
+</section>
+
+<section>
+  <h4>Example - Subscription</h4>
+
+  <code><pre>
+p_songs.onValue(songs =&gt; {
+  list.innerHTML = songs.map(
+    song =&gt; "&lt;li&gt;" + song.title + "&lt;/li&gt;";
+  ).join("");
+});
+
+p_songs.onError(console.error.bind(console));
+  </pre></code>
+</section>
+
+<section>
+  <code class="end">
+new Bacon.End();
+  </code>
+</section>
+
+<section>
+  <ul>
+    <li>http://baconjs.github.io/api.html</li>
+    <li>Juha Paananen - @raimohanska</li>
+  </ul>
 </section>
 
 <!-- Your Style -->
@@ -196,6 +594,66 @@
 
   /* The items to-be-selected */
   .incremental > *[aria-selected] ~ * { opacity: 0; }
+
+  .red {
+    color: red;
+  }
+
+  .blue {
+    color: blue;
+  }
+
+  .avatar {
+    background-image: url("rbelouin.jpg");
+    height: 200px;
+    margin: 30px auto 0;
+    width: 200px;
+    background-position: center 17%;
+    border-radius: 100px;
+    background-size: cover;
+  }
+
+  h2.author {
+    margin-top: 20px;
+  }
+
+  p.pseudo {
+    margin: 25px 120px;
+    text-align: center;
+  }
+
+  p.tags {
+    font-size: 30px;
+    margin: 25px 120px;
+    text-align: center;
+  }
+
+  h3 {
+    margin: 250px 0;
+    text-align: center;
+  }
+
+  h4 {
+    margin: 20px 50px;
+  }
+
+  code pre {
+    margin: 0 20px;
+  }
+
+  #example1 {
+    text-align: center;
+  }
+
+  #example1-list {
+    text-align: left;
+  }
+
+  code.end {
+    display: block;
+    text-align: center;
+    margin-top: 250px;
+  }
 
   /* The progressbar, at the bottom of the slides, show the global
      progress of the presentation. */
@@ -350,17 +808,9 @@
       aEvent.preventDefault();
       this.goStart();
     }
-    if (aEvent.keyCode == 32) { // space
-      aEvent.preventDefault();
-      this.toggleContent();
-    }
     if (aEvent.keyCode == 70) { // f
       aEvent.preventDefault();
       this.goFullscreen();
-    }
-    if (aEvent.keyCode == 79) { // o
-      aEvent.preventDefault();
-      this.toggleView();
     }
   }
 
